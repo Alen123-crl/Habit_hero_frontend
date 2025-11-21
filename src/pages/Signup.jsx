@@ -1,138 +1,137 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
-  TextField,
-  Typography,
   Paper,
-  Divider,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 
-function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [age, setAge] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
+const RegisterForm = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [backendErrors, setBackendErrors] = useState({});
+  const [generalError, setGeneralError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = async (formData) => {
+    setBackendErrors({});
+    setGeneralError("");
+    setLoading(true);
+
+    try {
+      await API.post("/signup/", formData);
+      navigate("/login");
+    } catch (err) {
+      const data = err?.response?.data;
+
+      if (data && typeof data === "object") {
+        setBackendErrors(data);
+      } else {
+        setGeneralError("Registration failed.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "#f0f2f5",
-        padding: 2,
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{
-          padding: 4,
-          width: 380,
-          borderRadius: 3,
-        }}
-      >
-        <Typography variant="h5" fontWeight={600} textAlign="center" mb={3}>
-          Create an Account
-        </Typography>
+    <Paper elevation={6} sx={{ p: 4, width: "100%", maxWidth: 400, mx: "auto" }}>
+      <Typography variant="h4" fontWeight="bold" align="center" gutterBottom>
+        Create Account
+      </Typography>
 
+      {generalError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {generalError}
+        </Alert>
+      )}
+
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
 
         <TextField
           fullWidth
           label="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          margin="dense"
+          margin="normal"
+          {...register("first_name", { required: "First name is required" })}
+          error={!!errors.first_name || !!backendErrors.first_name}
+          helperText={
+            errors.first_name?.message || backendErrors.first_name?.[0]
+          }
         />
 
         <TextField
           fullWidth
           label="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          margin="dense"
+          margin="normal"
+          {...register("last_name", { required: "Last name is required" })}
+          error={!!errors.last_name || !!backendErrors.last_name}
+          helperText={
+            errors.last_name?.message || backendErrors.last_name?.[0]
+          }
         />
 
-    
         <TextField
           fullWidth
           label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          margin="dense"
+          margin="normal"
+          {...register("email", {
+            required: "Email is required",
+          })}
+          error={!!errors.email || !!backendErrors.email}
+          helperText={errors.email?.message || backendErrors.email?.[0]}
         />
 
-   
         <TextField
           fullWidth
-          type="password"
           label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          margin="dense"
+          type="password"
+          margin="normal"
+          {...register("password", {
+            required: "Password is required",
+          })}
+          error={!!errors.password || !!backendErrors.password}
+          helperText={errors.password?.message || backendErrors.password?.[0]}
         />
 
-      
         <TextField
           fullWidth
-          type="number"
           label="Age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          margin="dense"
+          margin="normal"
+          {...register("age", { required: "Age is required" })}
+          error={!!errors.age || !!backendErrors.age}
+          helperText={errors.age?.message || backendErrors.age?.[0]}
         />
 
-     
-        <Button 
-          variant="outlined" 
-          component="label" 
-          fullWidth 
-          sx={{ mt: 2 }}
-        >
-          Upload Profile Picture
-          <input
-            type="file"
-            hidden
-            accept="image/*"
-            onChange={(e) => setProfilePic(e.target.files[0])}
-          />
-        </Button>
-
-        {profilePic && (
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Selected: {profilePic.name}
-          </Typography>
-        )}
-
- 
         <Button
-          variant="contained"
+          type="submit"
           fullWidth
-          sx={{ mt: 3, py: 1 }}
+          variant="contained"
+          disabled={loading}
+          sx={{
+            mt: 2,
+            borderRadius: "100px",
+            background: "#444444",
+            "&:hover": { backgroundColor: "#333" },
+            fontWeight: 600,
+          }}
         >
-          Sign Up
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Register"}
         </Button>
-
-        <Divider sx={{ my: 3 }}>OR</Divider>
-
-        
-        <Button variant="outlined" fullWidth sx={{ py: 1 }}>
-          Continue with Google
-        </Button>
-
-        <Typography variant="body2" textAlign="center" mt={3}>
-          Already have an account?
-          <span style={{ color: "#1976d2", cursor: "pointer" }}>
-            &nbsp;Login
-          </span>
-        </Typography>
-      </Paper>
-    </Box>
+      </Box>
+    </Paper>
   );
-}
+};
 
-export default SignUp;
+export default RegisterForm;

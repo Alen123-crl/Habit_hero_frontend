@@ -1,13 +1,13 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
-function AppHeader() {
+function AuthHeader() {
   const { pathname } = useLocation();
 
   return (
     <AppBar position="static" elevation={0} color="transparent">
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-
+        
         <Typography variant="h5" fontWeight={700}>
           MyApp
         </Typography>
@@ -15,28 +15,18 @@ function AppHeader() {
         <Box>
           <Button
             component={Link}
-            to="/"
-            variant={pathname === "/" ? "text" : "outlined"}
+            to="/login"
+            variant={pathname === "/login" ? "text" : "outlined"}
             sx={{ mr: 1 }}
           >
-            Home
+            Login
           </Button>
-
           <Button
             component={Link}
-            to="/dashboard"
-            variant={pathname === "/dashboard" ? "text" : "outlined"}
-            sx={{ mr: 1 }}
+            to="/signup"
+            variant={pathname === "/signup" ? "text" : "contained"}
           >
-            Dashboard
-          </Button>
-
-          <Button
-            component={Link}
-            to="/profile"
-            variant={pathname === "/profile" ? "text" : "outlined"}
-          >
-            Profile
+            Sign Up
           </Button>
         </Box>
 
@@ -44,5 +34,4 @@ function AppHeader() {
     </AppBar>
   );
 }
-
-export default AppHeader;
+export default AuthHeader
