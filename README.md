@@ -1,16 +1,92 @@
-# React + Vite
+Habit Hero - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React web application for Habit Tracking
 
-Currently, two official plugins are available:
+📋 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Habit Hero frontend provides a responsive UI for:
 
-## React Compiler
+Tracking habits
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Viewing analytics and streaks
 
-## Expanding the ESLint configuration
+Managing user profile
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+PDF report generation
+
+Built with React, Material-UI, and Recharts.
+
+🛠 Tech Stack
+
+React 19.2.0
+
+Vite 7.2.4
+
+Material-UI (MUI) 7.3.5
+
+React Router DOM 7.9.6
+
+Axios 1.13.2 (API calls)
+
+Recharts 3.4.1 (analytics charts)
+
+jsPDF 3.0.4 (PDF reports)
+
+React Hook Form 7.66.1 (forms)
+
+⚡️ Features
+
+User Authentication: Login, signup, persistent session
+
+Profile Management: Edit info, profile picture upload
+
+Habit Management: Create, edit, delete habits
+
+Habit Tracking: Check-ins, view history
+
+Analytics Dashboard: Streaks, success rate, charts
+
+PDF Export: Download habits and check-in history
+
+🗂 Project Structure
+src/
+├── api/                # Axios instance with JWT interceptors
+├── components/         # Reusable UI components
+├── context/            # Auth state management
+├── layout/             # App and Auth layouts
+├── pages/              # Dashboard, Habits, Login, Signup
+├── routes/             # Route definitions
+└── theme/              # Material-UI theme
+
+🚀 Setup
+
+Install dependencies
+
+npm install
+
+
+Start dev server
+
+npm run dev
+
+
+Frontend available at http://localhost:5173
+
+Build for production
+
+npm run build
+
+Note: Update baseURL in src/api/axios.js to match backend server.
+
+🎨 UI Features
+
+Responsive Material-UI components
+
+Habit cards with quick check-ins
+
+Analytics charts with Recharts
+
+Modals for habit creation/editing
+
+Snackbar notifications for actions
+
