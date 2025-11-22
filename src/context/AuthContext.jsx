@@ -13,15 +13,15 @@ export default function AuthProvider({ children }) {
     }
   });
 
-  // Login
+  
   const login = async (email, password) => {
     try {
       const res = await API.post("/login/", { email, password });
 
       const { user, tokens } = res.data;
 
-      localStorage.setItem("access", tokens.access);
-      localStorage.setItem("refresh", tokens.refresh);
+      localStorage.setItem("accessToken", tokens.access);
+      localStorage.setItem("refreshToken", tokens.refresh);
       localStorage.setItem("user", JSON.stringify(user));
 
       setUser(user);
@@ -40,7 +40,7 @@ export default function AuthProvider({ children }) {
   }
 };
 
-  // Logout
+  
   const logout = () => {
     localStorage.clear();
     setUser(null);

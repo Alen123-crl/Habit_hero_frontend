@@ -4,6 +4,7 @@ import LoginForm from "../pages/Login";
 import SignUpForm from "../pages/Signup";
 import Dashboard from "../pages/Dashboard";
 import AppLayout from "../layout/AppLayout";
+import Habit from "../pages/Habit";
 
 export default function AppRoutes() {
     return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
             {/* PROTECTED APPLICATION ROUTES */}
             <Route path="/" element={<AppLayout />}>
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/habits" element={<Habit/>}/>
             </Route>
 
         </Routes>
