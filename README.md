@@ -49,14 +49,14 @@ Analytics Dashboard: Streaks, success rate, charts
 PDF Export: Download habits and check-in history
 
 🗂 Project Structure
-src/
-├── api/                # Axios instance with JWT interceptors
-├── components/         # Reusable UI components
-├── context/            # Auth state management
-├── layout/             # App and Auth layouts
-├── pages/              # Dashboard, Habits, Login, Signup
-├── routes/             # Route definitions
-└── theme/              # Material-UI theme
+  src/
+  ├── api/                # Axios instance with JWT interceptors
+  ├── components/         # Reusable UI components
+  ├── context/            # Auth state management
+  ├── layout/             # App and Auth layouts
+  ├── pages/              # Dashboard, Habits, Login, Signup
+  ├── routes/             # Route definitions
+  └── theme/              # Material-UI theme
 
 🚀 Setup
 
